@@ -24,15 +24,34 @@ def add_task(task, description=None):
     todoist.add_task(content=task,
                      description=description)
 
+@tool
+def show_task():
+    """Show all the task from todoist. Use this tool when the user wants to see their tasks"""
+    results_paginator = todoist.get_tasks()
+    tasks = []
+    for task_list in results_paginator:
+        for task in task_list:
+            tasks.append(task.content)
+    return tasks
 
-tools = [add_task]
+tools = [add_task, show_task]
 llm = ChatGoogleGenerativeAI(
     model = 'gemini-2.5-flash',
     google_api_key = gemini_api_key,
     temperature = 0.3
 )
 
-system_prompt = "You are a useful assistant, you will help the user add tasks and answer any user queries"
+system_prompt = """
+        You are a helpful and organized task assistant.
+        Your responsibilities are:
+        
+        1. Add new tasks when the user requests. Ask for clarification if needed.
+        2. Show the user’s existing tasks in a clear, numbered or bulleted list.
+        3. Confirm actions after adding tasks or showing tasks.
+        4. Always keep responses concise, friendly, and easy to read.
+"""
+
+
 
 prompt = ChatPromptTemplate([
     ("system", system_prompt),
