@@ -25,5 +25,13 @@ The assistant interprets user input, decides when to call tools, and interacts w
 - `test.py` – Testing and experimentation file
 
 ## Usage
-1. Install dependencies:
+1. Install dependencies
+2. Set environment variables
+3. Run
+
+   
+## Learning Outcome
+This project demonstrates building AI agents with tool calling, integrating LLMs with real-world APIs, and designing structured prompts for reliable automation.
+
+
 
